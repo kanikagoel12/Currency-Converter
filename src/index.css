@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen overflow-x-hidden bg-slate-100 text-slate-900 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100;
+  }
+}
+
+@layer utilities {
+  .background-scene {
+    position: fixed;
+    inset: 0;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+
+  .scene-light {
+    @apply absolute inset-x-1/2 top-16 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.12) 18%, rgba(255, 255, 255, 0) 65%);
+    filter: blur(38px);
+    opacity: 0.68;
+    animation: halo-spin 42s linear infinite;
+  }
+
+  .sphere-parallax {
+    @apply absolute inset-0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translate3d(0, 0, 0);
+  }
+
+  .sphere-parallax-near {
+    --parallax-x: 56px;
+    --parallax-y: 40px;
+    --rotate-x: -12deg;
+    --rotate-y: 12deg;
+  }
+
+  .sphere-parallax-mid {
+    --parallax-x: 34px;
+    --parallax-y: 24px;
+    --rotate-x: -8deg;
+    --rotate-y: 8deg;
+  }
+
+  .sphere-parallax-far {
+    --parallax-x: 18px;
+    --parallax-y: 14px;
+    --rotate-x: -5deg;
+    --rotate-y: 5deg;
+  }
+
+  .floating-sphere {
+    @apply absolute rounded-full bg-white/0;
+    transform-style: preserve-3d;
+    background:
+      radial-gradient(circle at 28% 26%, rgba(255,255,255,0.98) 0 3%, rgba(255,255,255,0.5) 9%, rgba(255,255,255,0.09) 16%, transparent 26%),
+      radial-gradient(circle at 72% 74%, rgba(6, 10, 20, 0.32), rgba(6, 10, 20, 0) 46%),
+      radial-gradient(circle at 50% 52%, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.16);
+    backdrop-filter: blur(8px) saturate(1.14);
+    -webkit-backdrop-filter: blur(8px) saturate(1.14);
+    box-shadow:
+      inset 20px 28px 56px rgba(255,255,255,0.08),
+      inset -20px -28px 56px rgba(2,6,23,0.22),
+      0 24px 64px rgba(2,6,23,0.35),
+      0 0 0 1px rgba(255,255,255,0.10);
+    filter: contrast(1.06) saturate(1.18) brightness(1.04);
+    mix-blend-mode: screen;
+    opacity: 1;
+    animation:
+      sphere-float 18s ease-in-out infinite alternate,
+      sphere-rotate 14s ease-in-out infinite alternate,
+      sphere-pulse 10s ease-in-out infinite;
+  }
+
+  .floating-sphere::before {
+    content: "";
+    @apply absolute rounded-full;
+    inset: 10%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.58) 12%, rgba(255,255,255,0.24) 26%, rgba(255,255,255,0) 46%);
+    transform: translateZ(20px) scale(0.98);
+    filter: blur(2px) contrast(1.02);
+    opacity: 1;
+  }
+
+  .floating-sphere::after {
+    content: "";
+    @apply absolute rounded-full;
+    inset: -6%;
+    background: radial-gradient(circle at 68% 72%, rgba(2,6,23,0.42), rgba(2,6,23,0) 54%);
+    filter: blur(24px) contrast(0.95);
+    transform: translate3d(0, 8%, -120px) scale(0.9);
+    opacity: 0.68;
+  }
+
+  .sphere-one {
+    top: -4rem;
+    left: -4rem;
+    height: clamp(14rem, 24vw, 24rem);
+    width: clamp(14rem, 24vw, 24rem);
+    animation-duration: 20s, 13s, 11s;
+  }
+
+  .sphere-two {
+    top: 7rem;
+    right: -6rem;
+    height: clamp(12rem, 21vw, 21rem);
+    width: clamp(12rem, 21vw, 21rem);
+    background:
+      radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.98) 0 4%, rgba(255, 255, 255, 0.5) 9%, rgba(255, 255, 255, 0.1) 18%, transparent 28%),
+      radial-gradient(circle at 70% 72%, rgba(2, 6, 23, 0.28), rgba(2, 6, 23, 0) 44%),
+      radial-gradient(circle at 40% 38%, rgba(168, 85, 247, 0.62), rgba(59, 130, 246, 0.28) 58%, rgba(15, 23, 42, 0.35) 100%);
+    animation-duration: 24s, 15s, 12s;
+    animation-direction: alternate-reverse, alternate, alternate;
+  }
+
+  .sphere-four {
+    top: 48%;
+    left: 18%;
+    height: clamp(7rem, 12vw, 12rem);
+    width: clamp(7rem, 12vw, 12rem);
+    background:
+      radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.98) 0 6%, rgba(255, 255, 255, 0.35) 14%, transparent 28%),
+      radial-gradient(circle at 70% 72%, rgba(2, 6, 23, 0.26), rgba(2, 6, 23, 0) 48%),
+      radial-gradient(circle at 40% 38%, rgba(251, 191, 36, 0.48), rgba(244, 114, 182, 0.2) 58%, rgba(15, 23, 42, 0.28) 100%);
+    animation-duration: 19s, 10s, 9s;
+    animation-direction: alternate, alternate-reverse, alternate;
+  }
+
+  .ambient-grid {
+    @apply absolute inset-0 opacity-[0.05] dark:opacity-[0.08];
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+    background-size: 72px 72px;
+    transform: translateZ(-160px) scale(1.2);
+    animation: grid-drift 48s linear infinite;
+    mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+  }
+}
+
+@keyframes ambient-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(1.5rem, -1rem, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-1rem, 1.25rem, 0) scale(0.98);
+  }
+}
+
+@keyframes ambient-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes sphere-float {
+  0% {
+    transform: translate3d(0, 0, 0) rotateX(8deg) rotateY(-10deg) rotateZ(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(1rem, -1.25rem, 60px) rotateX(-10deg) rotateY(12deg) rotateZ(8deg) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-1rem, 1rem, -30px) rotateX(10deg) rotateY(-6deg) rotateZ(-6deg) scale(0.98);
+  }
+}
+
+@keyframes sphere-rotate {
+  0% {
+    filter: saturate(1.08) contrast(1.02) hue-rotate(0deg);
+  }
+  100% {
+    filter: saturate(1.18) contrast(1.08) hue-rotate(10deg);
+  }
+}
+
+@keyframes sphere-pulse {
+  0%,
+  100% {
+    opacity: 0.76;
+  }
+  50% {
+    opacity: 0.96;
+  }
+}
+
+@keyframes ambient-tilt {
+  0% {
+    transform: rotateX(10deg) rotateY(-8deg) translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: rotateX(-10deg) rotateY(8deg) translate3d(0.75rem, -0.75rem, 0) scale(1.04);
+  }
+}
+
+@keyframes halo-spin {
+  from {
+    transform: translateX(-50%) rotate(0deg) scale(1);
+  }
+  to {
+    transform: translateX(-50%) rotate(360deg) scale(1.08);
+  }
+}
+
+@keyframes grid-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 72px 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sphere-parallax {
+    transition: none;
+    transform: none;
+  }
+
+  .floating-sphere,
+  .ambient-grid,
+  .scene-light {
+    animation: none !important;
+  }
+}
