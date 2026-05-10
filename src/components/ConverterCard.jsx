@@ -37,7 +37,6 @@ export default function ConverterCard() {
     result,
     loading,
     error,
-    trend,
     lastUpdated,
     fetchRate,
     swapCurrencies,
@@ -83,7 +82,7 @@ export default function ConverterCard() {
   return (
     <form
       onSubmit={onConvert}
-      className="w-full rounded-2xl border border-white/40 bg-white/50 p-5 shadow-glass backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/50 sm:p-6"
+      className="w-full rounded-2xl border border-white/40 bg-white/50 p-6 shadow-glass backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/50 sm:p-8"
       noValidate
       aria-label="Currency conversion form"
     >
@@ -122,7 +121,7 @@ export default function ConverterCard() {
 
       {/* Result Card */}
       {!loading && result ? (
-        <ResultCard result={result} trend={trend} lastUpdated={lastUpdated} />
+        <ResultCard result={result} lastUpdated={lastUpdated} />
       ) : null}
 
       {/* Error Message */}

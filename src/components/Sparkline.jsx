@@ -38,4 +38,3 @@ export default function Sparkline({ data = [], width = 120, height = 32, stroke 
   );
 }
 
-
