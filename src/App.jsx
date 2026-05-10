@@ -11,7 +11,7 @@ export default function App() {
       : "pointer-events-none fixed bottom-4 right-4 z-20 select-none px-3 py-1 text-xs italic text-slate-900 bg-transparent border-transparent sm:bottom-6 sm:right-6 sm:text-sm";
 
   return (
-    <div className="relative isolate min-h-screen overflow-hidden bg-app-gradient px-4 pb-10">
+    <div className="relative isolate flex min-h-screen flex-col overflow-hidden bg-app-gradient px-4">
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 background-scene"
@@ -30,9 +30,9 @@ export default function App() {
         </div>
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-1 flex-col">
         <Navbar theme={theme} onToggleTheme={toggleTheme} />
-        <main className="mx-auto w-full max-w-2xl">
+        <main className="mx-auto flex w-full max-w-2xl flex-1 items-center justify-center py-6 sm:py-8">
           <ConverterCard />
         </main>
         <Toast />

@@ -10,7 +10,6 @@ export default function useConverter() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [trend, setTrend] = useState(0);
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const numericAmount = useMemo(() => {
@@ -25,10 +24,18 @@ export default function useConverter() {
     try {
       const url = `${API_BASE}/${fromCurrency.toLowerCase()}.min.json`;
       const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch rates.");
+      if (!response.ok) {
+        setError("Failed to fetch rates.");
+        setResult(null);
+        return { ok: false };
+      }
       const data = await response.json();
       const rate = data?.[fromCurrency.toLowerCase()]?.[toCurrency.toLowerCase()];
-      if (!rate) throw new Error("Rate not available for this pair.");
+      if (!rate) {
+        setError("Rate not available for this pair.");
+        setResult(null);
+        return { ok: false };
+      }
 
       const converted = numericAmount * rate;
       setResult({
@@ -39,10 +46,6 @@ export default function useConverter() {
         converted,
       });
       setLastUpdated(new Date().toISOString());
-
-      // Mock trend indicator: random +/- 2%
-      const mockTrend = (Math.random() * 4 - 2).toFixed(2);
-      setTrend(Number(mockTrend));
       return { ok: true };
     } catch (err) {
       setError(err.message || "Something went wrong.");
@@ -73,7 +76,6 @@ export default function useConverter() {
     result,
     loading,
     error,
-    trend,
     lastUpdated,
     fetchRate,
     swapCurrencies,

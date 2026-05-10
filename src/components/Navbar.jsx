@@ -25,7 +25,7 @@ export default function Navbar({ theme, onToggleTheme }) {
     <header className="mx-auto flex w-full max-w-2xl items-center justify-between px-4 pb-5 pt-6">
       <div>
         <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-          Premium Fintech
+            Global Exchange
         </p>
         <h1 className="text-2xl font-bold tracking-tight">Currency Converter</h1>
       </div>
